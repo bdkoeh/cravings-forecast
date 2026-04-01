@@ -1,0 +1,25 @@
+// SF Cravings Forecast -- SCSS entry point
+// Imports all ws4kp-derived and project-specific partials
+
+@use 'fonts';
+@use 'colors' as c;
+@use 'utils' as u;
+@use 'scanlines';
+@use 'backgrounds';
+@use 'layout';
+@use 'components';
+@use 'admin';
+
+// CSS Reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}

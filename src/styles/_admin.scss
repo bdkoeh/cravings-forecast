@@ -1,0 +1,320 @@
+// Admin Panel Styles
+// Deliberately plain -- no retro WS4000 aesthetic (per D-11)
+// Functional forms with basic CSS, prioritizing usability for data entry
+
+// When admin panel is the only thing on the page, override body's retro styles
+body:has(.admin-panel) {
+  background: #f5f5f5;
+  overflow: auto;
+  filter: none;
+  image-rendering: auto;
+}
+
+.admin-panel {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 24px;
+
+  // Reset all retro styles
+  text-shadow: none;
+  filter: none;
+  image-rendering: auto;
+
+  * {
+    text-shadow: none;
+  }
+
+  h1, h2, h3 {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #111;
+  }
+
+  a {
+    color: #2563eb;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.admin-nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+
+  a {
+    padding: 6px 12px;
+    border-radius: 4px;
+
+    &:hover {
+      background: #e5e7eb;
+    }
+  }
+}
+
+.admin-login {
+  max-width: 320px;
+  margin: 80px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    margin: 0 0 16px;
+    font-size: 20px;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background: #1d4ed8;
+    }
+  }
+}
+
+.admin-error {
+  color: #dc2626;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.admin-dashboard {
+  h1 {
+    margin: 0 0 24px;
+    font-size: 24px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+  }
+
+  li a {
+    display: block;
+    padding: 16px 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+    }
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 16px;
+
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+  }
+
+  tr:hover td {
+    background: #f9fafb;
+  }
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-btn {
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+
+  &--danger {
+    color: #dc2626;
+    border-color: #dc2626;
+
+    &:hover {
+      background: #fef2f2;
+    }
+  }
+
+  &--primary {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+
+    &:hover {
+      background: #1d4ed8;
+    }
+  }
+}
+
+.admin-form {
+  max-width: 600px;
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #374151;
+
+    span {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+  }
+
+  input[type="text"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+}
+
+.admin-checkbox-group {
+  display: flex;
+  gap: 16px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+  }
+}
+
+.admin-form-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+}
+
+.admin-logout {
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+// --- Page Editor ---
+
+.admin-page-editor {
+  width: 100%;
+  min-height: 300px;
+  padding: 12px;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.admin-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.admin-hint {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.admin-saved {
+  font-size: 14px;
+  color: #16a34a;
+  font-weight: 500;
+}

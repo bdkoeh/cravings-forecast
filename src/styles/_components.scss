@@ -1,0 +1,1244 @@
+// WS4000 Component Styles
+// Styles for Preact layout and UI components
+
+@use 'colors' as c;
+@use 'utils' as u;
+
+// ============================================================
+// Audio Toggle
+// ============================================================
+
+.audio-toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 1;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &__label {
+    font-family: 'Star4000 Small', monospace;
+    font-size: 48px;
+    color: c.$date-time;
+    line-height: 1;
+    margin-bottom: 10px;
+    @include u.text-shadow();
+  }
+
+  img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+// ============================================================
+// About Page
+// ============================================================
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &__content {
+    flex: 1;
+    padding: 0 10%;
+    font-family: 'Star4000', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    text-shadow: none;
+    line-height: 1.5;
+    overflow-y: auto;
+
+    p { margin: 0 0 16px; }
+    h1, h2, h3 {
+      font-family: 'Star4000 Large', sans-serif;
+      color: c.$title-color;
+      margin: 0 0 12px;
+    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 32px; }
+    h3 { font-size: 28px; }
+    a {
+      color: c.$title-color;
+      text-decoration: underline;
+    }
+    strong { color: c.$title-color; }
+    ul, ol { margin: 0 0 16px 24px; }
+    li { margin-bottom: 6px; }
+  }
+}
+
+// ============================================================
+// Header
+// ============================================================
+
+.ws4000-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 16px 0 5.4%;
+  position: absolute;
+  top: 8.5%;
+  height: 7%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  gap: 16px;
+}
+
+.ws4000-header__title {
+  font-family: 'Star4000 Large', monospace;
+  font-size: 36px;
+  line-height: 1.4;
+  color: c.$title-color;
+  flex: 1;
+  text-align: left;
+  margin-right: 20%;
+
+  @include u.text-shadow();
+}
+
+// Typewriter cursor (#3)
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.ws4000-header__cursor {
+  animation: cursor-blink 0.6s step-end infinite;
+  font-weight: normal;
+}
+
+.ws4000-header__datetime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: 'Star4000 Small', monospace;
+  font-size: 48px;
+  color: c.$date-time;
+  gap: 2px;
+}
+
+// ============================================================
+// Logo
+// ============================================================
+
+.ws4000-logo {
+  flex-shrink: 0;
+}
+
+.ws4000-logo__img {
+  height: 180px;
+  width: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+// ============================================================
+// Crawl Bar
+// ============================================================
+
+.crawl-bar {
+  height: 18%;
+  background: c.$column-header;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.crawl-bar__header {
+  font-family: 'Star4000 Small', monospace;
+  font-size: 19px;
+  color: c.$title-color;
+  padding: 4px 8px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.crawl-bar__track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.crawl-bar__text {
+  font-family: 'Star4000 Small', monospace;
+  font-size: 72px;
+  color: c.$date-time;
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 0;
+  display: flex;
+  animation: crawl-scroll linear infinite;
+}
+
+.crawl-bar__text-duplicate {
+  // Second copy for seamless looping -- no additional styles needed
+}
+
+@keyframes crawl-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crawl-bar__text {
+    animation: none;
+    position: static;
+    padding: 4px 8px;
+  }
+}
+
+// ============================================================
+// Page Transition
+// ============================================================
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Detail page slide-up entrance (#11)
+@keyframes slide-up-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Star pick shimmer (#4)
+@keyframes pick-shimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.6) drop-shadow(0 0 4px rgba(255, 255, 0, 0.5)); }
+}
+
+// Ambient background color shift (#9)
+@keyframes ambient-drift {
+  0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+  50% { filter: brightness(1.03) hue-rotate(3deg); }
+}
+
+// ============================================================
+// Screen (route content area)
+// ============================================================
+
+.screen {
+  flex: 1;
+  animation: page-fade-in 0.3s ease-out, ambient-drift 20s ease-in-out infinite;
+  min-height: 0;
+  padding: 17% 32px 2%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  // Three-column layout: padding matches the column area in background 2.png
+  &.bg-three-column {
+    padding: 14.6% 7.5% 16% 7.19%;
+    justify-content: center;
+  }
+
+  // Single-panel layout: padding matches the blue box area of 1.png
+  &.bg-single-panel {
+    padding: 17% 11% 14% 15.5%;
+    align-items: stretch;
+  }
+}
+
+.screen-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: c.$date-time;
+  font-family: 'Star4000 Small', monospace;
+  font-size: 20px;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  cursor: pointer;
+  @include u.text-shadow();
+
+  &:hover {
+    color: c.$gradient-loading-3;
+  }
+}
+
+.screen-title {
+  font-family: 'Star4000 Large', monospace;
+  font-size: 36px;
+  color: c.$title-color;
+  text-align: center;
+  margin-bottom: 24px;
+
+  @include u.text-shadow();
+}
+
+.screen-subtitle {
+  font-family: 'Star4000', monospace;
+  font-size: 24px;
+  color: c.$date-time;
+  text-align: center;
+  margin-top: 24px;
+
+  @include u.text-shadow();
+}
+
+// ============================================================
+// Signal Lost (404 page)
+// ============================================================
+
+@keyframes static-flicker {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.06; }
+}
+
+@keyframes text-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.3; }
+  94% { opacity: 1; }
+}
+
+.signal-lost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 24px;
+  position: relative;
+
+  &__static {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+    animation: static-flicker 0.15s infinite;
+    pointer-events: none;
+  }
+
+  &__title {
+    font-family: 'Star4000 Large', monospace;
+    font-size: 64px;
+    color: #fff;
+    @include u.text-shadow();
+    animation: text-flicker 3s infinite;
+    letter-spacing: 8px;
+  }
+
+  &__message {
+    font-family: 'Star4000', monospace;
+    font-size: 24px;
+    color: c.$date-time;
+    @include u.text-shadow();
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  &__button {
+    font-family: 'Star4000 Small', monospace;
+    font-size: 20px;
+    color: c.$title-color;
+    background: none;
+    border: 2px solid c.$title-color;
+    padding: 10px 24px;
+    cursor: pointer;
+    @include u.text-shadow();
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 0, 0.1);
+    }
+  }
+}
+
+// ============================================================
+// Loading Skeleton
+// ============================================================
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+
+  &__bar {
+    height: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+
+    &--name { width: 40%; }
+    &--hood { width: 25%; }
+    &--cuisine { width: 20%; }
+    &--icon { width: 32px; height: 32px; border-radius: 50%; }
+  }
+}
+
+// ============================================================
+// Condition Icon
+// ============================================================
+
+.condition-icon {
+  display: inline-block;
+  vertical-align: middle;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
+
+.condition-icon--small {
+  width: 24px;
+  height: 24px;
+}
+
+.condition-icon--large {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+// ============================================================
+// WS4000 Data Table (per D-03)
+// ============================================================
+
+.ws4000-table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  width: 100%;
+  padding-bottom: 16%;
+
+  // Subtle scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.ws4000-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: 'Star4000', monospace;
+  font-size: 36px;
+  color: c.$date-time;
+
+  @include u.text-shadow();
+
+  th {
+    font-family: 'Star4000 Small', monospace;
+    font-size: 28px;
+    color: c.$title-color;
+    text-align: left;
+    padding: 8px 16px;
+    border-bottom: none;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    background: rgb(35, 50, 112);
+    z-index: 1;
+  }
+
+  td {
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  // Alternating row tint (#12)
+  tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &__row--clickable {
+    cursor: pointer;
+    transition: background-color 0.15s;
+
+    &:hover {
+      background: rgba(79, 153, 249, 0.25);
+    }
+  }
+
+  &__sortable {
+    cursor: pointer;
+
+    &:hover {
+      color: c.$date-time;
+    }
+  }
+
+  &__pick {
+    color: c.$title-color;
+  }
+
+  &__pick-col {
+    width: 10%;
+    min-width: 140px;
+    white-space: nowrap;
+  }
+
+  &__name-col {
+    width: 40%;
+  }
+
+  &__hood-col {
+    width: 25%;
+  }
+
+  &__cuisine-col {
+    width: 20%;
+  }
+
+  &__pick-icon {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    animation: pick-shimmer 3s ease-in-out infinite;
+  }
+
+  &__empty {
+    font-family: 'Star4000', monospace;
+    font-size: 36px;
+    color: c.$date-time;
+    text-align: center;
+    padding: 32px;
+    @include u.text-shadow();
+  }
+}
+
+// ============================================================
+// Condition Picker (Landing Page - per D-01, D-02)
+// ============================================================
+
+.condition-picker {
+  display: grid;
+  // Three equal columns with gaps matching the ~17px borders between columns in 2.png
+  // Column area is ~530px wide (3x165 + 2x17), gap = 17/530 ≈ 3.2%
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6.6%;
+  width: 100%;
+  height: 100%;
+}
+
+.condition-picker__column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 10% 12px 12px;
+  gap: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: background-color 0.2s, transform 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(79, 153, 249, 0.15);
+    transform: scale(1.03);
+  }
+}
+
+.condition-picker__tag {
+  font-family: 'Star4000', monospace;
+  font-size: 67px;
+  color: c.$title-color;
+  text-transform: uppercase;
+  @include u.text-shadow();
+}
+
+.condition-picker__label {
+  font-family: 'Star4000 Large', monospace;
+  font-size: 38px;
+  color: c.$date-time;
+  align-self: flex-start;
+  text-align: left;
+  margin-top: 16px;
+  @include u.text-shadow();
+}
+
+.condition-picker__stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 8px;
+}
+
+.condition-picker__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.condition-picker__stat-label {
+  font-family: 'Star4000 Small', monospace;
+  font-size: 42px;
+  color: c.$title-color;
+  @include u.text-shadow();
+}
+
+.condition-picker__stat-value {
+  font-family: 'Star4000', monospace;
+  font-size: 48px;
+  color: c.$date-time;
+  @include u.text-shadow();
+}
+
+// ============================================================
+// Neighborhood Map (per D-06, BRW-05)
+// ============================================================
+
+.neighborhood-map-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 16px;
+}
+
+.neighborhood-map {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.map-region {
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  rect {
+    stroke: rgb(32, 0, 87);
+    stroke-width: 2;
+  }
+
+  text {
+    font-family: 'Star4000 Small', monospace;
+    font-size: 14px;
+    fill: white;
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: central;
+  }
+
+  &:hover rect,
+  &:focus-visible rect {
+    fill-opacity: 0.85;
+    stroke: #4f99f9;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(79, 153, 249, 0.6));
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+// ============================================================
+// Neighborhood List (per D-07)
+// ============================================================
+
+.neighborhood-list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.neighborhood-list-back {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: c.$date-time;
+  font-family: 'Star4000 Small', monospace;
+  font-size: 14px;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  @include u.text-shadow();
+
+  &:hover {
+    background: rgba(79, 153, 249, 0.2);
+    border-color: c.$gradient-loading-3;
+  }
+}
+
+// ============================================================
+// Mobile Responsive Overrides (< 768px)
+// Per decisions D-02, D-03, D-04, D-07, D-09, D-13, D-14, D-15
+// ============================================================
+
+// Cuisine secondary label -- hidden on desktop, shown on mobile
+.ws4000-table__cuisine-secondary {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  // --- About Page ---
+  .about-page {
+    background-image: url('/assets/images/backgrounds/mobile-card.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    padding: 24px 32px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .about-page__content {
+    font-size: 20px;
+    padding: 0 5%;
+
+    h1 { font-size: 24px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 20px; }
+  }
+
+  // --- Audio Toggle (D-15) ---
+  .audio-toggle {
+    top: 8px;
+    right: 8px;
+
+    &__label {
+      font-size: 28px;
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  // --- Header: orange bar with logo centered vertically in it ---
+  .ws4000-header {
+    position: relative;
+    top: auto;
+    height: auto;
+    flex-shrink: 0;
+    display: block;
+    padding: 0;
+    padding-top: 55px; // Space above orange bar for Music label
+  }
+
+  .ws4000-logo {
+    position: absolute;
+    z-index: 2;
+    left: 8px;
+    top: 47px; // Vertically centered on the title bar
+  }
+
+  .ws4000-logo__img {
+    height: 105px;
+  }
+
+  .ws4000-header__title {
+    font-size: 20px;
+    margin-right: 0;
+    // Orange gradient background
+    background: url('/assets/images/backgrounds/mobile-header.png') center / 100% 100% no-repeat;
+    padding: 18px 12px 18px 150px; // Left padding clears the larger logo + gap, taller height
+    min-height: 88px; // Keep orange bar consistent across all pages
+    display: flex;
+    align-items: center;
+    line-height: 1.3;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .ws4000-header__datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 24px;
+    padding: 6px 12px;
+    gap: 0;
+  }
+
+  // --- Screen content area: the ONLY scrollable region ---
+  .screen {
+    padding: 12px 12px 8px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+
+    &.bg-three-column {
+      padding: 0;
+      background-image: none;
+      justify-content: flex-start; // Override desktop's center — content is taller than viewport
+    }
+  }
+
+  .screen-close {
+    font-size: 14px;
+  }
+
+  .screen-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .screen-subtitle {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+
+  // --- Signal Lost (404) ---
+  .signal-lost__title {
+    font-size: 36px;
+    letter-spacing: 4px;
+  }
+
+  .signal-lost__message {
+    font-size: 18px;
+  }
+
+  .signal-lost__button {
+    font-size: 16px;
+  }
+
+  // --- Condition Picker: Full-viewport cards with scroll snap ---
+  .condition-picker {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 20vh;
+  }
+
+  .condition-picker__column {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 32px;
+    gap: 16px;
+    width: 85%;
+    margin: 0 auto;
+
+    // Each card gets the mobile card background
+    background-image: url('/assets/images/backgrounds/mobile-card.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+  }
+
+  .condition-picker__tag {
+    font-size: 48px;
+    min-width: auto;
+  }
+
+  .condition-icon--large {
+    width: 80px;
+    height: 80px;
+  }
+
+  .condition-picker__label {
+    font-size: 24px;
+    margin-top: 8px;
+    align-self: flex-start;
+    text-align: left;
+    flex: unset;
+  }
+
+  .condition-picker__stats {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 16px;
+    gap: 24px;
+    align-items: center;
+    width: auto;
+  }
+
+  .condition-picker__stat {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .condition-picker__stat-label {
+    font-size: 24px;
+  }
+
+  .condition-picker__stat-value {
+    font-size: 28px;
+  }
+
+  // --- Restaurant Table (D-03): Name + Hood + cuisine secondary ---
+  .ws4000-table-wrapper {
+    padding-bottom: 8px;
+  }
+
+  .ws4000-table {
+    font-size: 20px;
+
+    th {
+      font-size: 16px;
+      padding: 6px 10px;
+      background: rgb(28, 10, 87); // Match mobile background color
+    }
+
+    td {
+      padding: 10px;
+    }
+  }
+
+  // Hide pick and cuisine columns on mobile
+  .ws4000-table__pick-col {
+    display: none;
+  }
+
+  .ws4000-table__cuisine-col {
+    display: none;
+  }
+
+  // Hide pick and cuisine data cells
+  .ws4000-table thead th:first-child {
+    display: none;
+  }
+
+  .ws4000-table thead th:last-child {
+    display: none;
+  }
+
+  .ws4000-table tbody td:first-child {
+    display: none;
+  }
+
+  .ws4000-table tbody td:last-child {
+    display: none;
+  }
+
+  // Show cuisine secondary label on mobile
+  .ws4000-table__cuisine-secondary {
+    display: none;
+  }
+
+  .ws4000-table__name-col {
+    width: 60%;
+  }
+
+  .ws4000-table__hood-col {
+    width: 40%;
+  }
+
+  .ws4000-table__empty {
+    font-size: 20px;
+  }
+
+  // --- Crawl Bar: stays at bottom, doesn't scroll ---
+  .crawl-bar {
+    height: 75px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .crawl-bar__header {
+    font-size: 15px;
+    padding: 2px 8px;
+  }
+
+  .crawl-bar__text {
+    font-size: 40px;
+  }
+
+  // --- Neighborhood Map ---
+  .neighborhood-map-container {
+    max-width: 100%;
+    margin-top: 8px;
+  }
+
+  .neighborhood-map {
+    max-height: none;
+  }
+
+  .map-region text {
+    font-size: 12px;
+  }
+
+  // --- Neighborhood List ---
+  .neighborhood-list-back {
+    font-size: 14px;
+    padding: 8px 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+}
+
+// ============================================================
+// Restaurant Detail Page
+// ============================================================
+
+.restaurant-detail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.restaurant-detail__columns {
+  display: flex;
+  gap: 48px;
+  flex: 1;
+  align-items: center;
+  padding: 0 2% 0 10%;
+}
+
+.restaurant-detail__left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+  align-self: flex-start;
+}
+
+.restaurant-detail__right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+  align-self: flex-start;
+  margin-left: -15%;
+}
+
+.restaurant-detail__close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: c.$date-time;
+  font-family: 'Star4000 Small', monospace;
+  font-size: 20px;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  margin-right: 5%;
+  cursor: pointer;
+  @include u.text-shadow();
+
+  &:hover {
+    color: c.$gradient-loading-3;
+  }
+}
+
+.restaurant-detail__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant-detail__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.restaurant-detail__label {
+  font-family: 'Star4000 Small', monospace;
+  font-size: 36px;
+  color: c.$title-color;
+  text-transform: uppercase;
+  @include u.text-shadow();
+}
+
+.restaurant-detail__value {
+  font-family: 'Star4000', monospace;
+  font-size: 36px;
+  color: c.$date-time;
+  @include u.text-shadow();
+}
+
+.restaurant-detail__conditions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.restaurant-detail__condition-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 260px;
+}
+
+.restaurant-detail__forecast {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.restaurant-detail__description {
+  font-family: 'Star4000', monospace;
+  font-size: 36px;
+  color: c.$date-time;
+  margin: 0;
+  line-height: 1.4;
+  @include u.text-shadow();
+}
+
+.restaurant-detail__link {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: 'Star4000 Small', monospace;
+  font-size: 36px;
+  color: c.$title-color;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 24px;
+  border-radius: 2px;
+  @include u.text-shadow();
+
+  &:hover {
+    background: rgba(79, 153, 249, 0.2);
+    border-color: c.$gradient-loading-3;
+  }
+}
+
+// --- Restaurant Detail: mobile overrides (must come after desktop styles) ---
+@media (max-width: 768px) {
+  .screen.bg-single-panel {
+    padding: 4px 6px;
+    background-image: none;
+    align-items: stretch;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    height: 0;
+  }
+
+  .restaurant-detail {
+    min-height: 100%;
+    background-image: url('/assets/images/backgrounds/pop-up.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    padding: 12px 16px;
+  }
+
+  .restaurant-detail__close {
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  .restaurant-detail__columns {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .restaurant-detail__left {
+    align-self: stretch;
+  }
+
+  .restaurant-detail__right {
+    align-self: stretch;
+    margin-left: 0;
+  }
+
+  .restaurant-detail__conditions {
+    order: 1;
+    margin-bottom: 2px;
+    align-items: flex-start;
+  }
+
+  .restaurant-detail__forecast {
+    order: 2;
+  }
+
+  .restaurant-detail__fields {
+    order: 3;
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .restaurant-detail__link {
+    order: 4;
+    align-self: center;
+    margin-top: 6px;
+    font-size: 20px;
+    padding: 8px 16px;
+  }
+
+  .restaurant-detail__label {
+    font-size: 22px;
+  }
+
+  .restaurant-detail__value {
+    font-size: 22px;
+  }
+
+  .restaurant-detail__description {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .restaurant-detail__condition-icons {
+    gap: 8px;
+
+    .condition-icon {
+      width: 67px;
+      height: 67px;
+    }
+  }
+}
+

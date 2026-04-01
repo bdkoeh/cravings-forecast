@@ -1,0 +1,33 @@
+// WS4000 Background PNG adaptation
+// Background images extracted from ws4kp (MIT)
+// Adapted for full-width layout per decisions D-01, D-03, D-04, D-10
+
+@mixin ws4000-background($bg-image) {
+  background-image: url($bg-image);
+  background-size: 100% 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
+
+.bg-single-panel   { @include ws4000-background('/assets/images/backgrounds/1.png'); }
+.bg-three-column   { @include ws4000-background('/assets/images/backgrounds/2.png'); }
+.bg-full-width     { @include ws4000-background('/assets/images/backgrounds/5.png'); }
+.bg-cascading      { @include ws4000-background('/assets/images/backgrounds/6.png'); }
+.bg-hazard         { @include ws4000-background('/assets/images/backgrounds/7.png'); }
+
+// On mobile, landing page has no screen bg (body's mobile-background shows through)
+// List pages use the solid mobile-background-list
+@media (max-width: 768px) {
+  .bg-single-panel,
+  .bg-three-column,
+  .bg-cascading,
+  .bg-hazard {
+    background-image: none;
+  }
+
+  .bg-full-width {
+    background-image: url('/assets/images/backgrounds/mobile-background-list.png');
+  }
+}

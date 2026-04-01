@@ -1,0 +1,17 @@
+// Text-shadow mixin -- extracted from ws4kp _utils.scss
+// Source: https://github.com/netbymatt/ws4kp (MIT)
+
+@use 'colors' as c;
+
+@mixin text-shadow($offset: 3px, $outline: 1.5px) {
+  text-shadow:
+    #{$offset} #{$offset} 0 c.$text-shadow,
+    -#{$outline} -#{$outline} 0 c.$text-shadow,
+    0 -#{$outline} 0 c.$text-shadow,
+    #{$outline} -#{$outline} 0 c.$text-shadow,
+    #{$outline} 0 0 c.$text-shadow,
+    #{$outline} #{$outline} 0 c.$text-shadow,
+    0 #{$outline} 0 c.$text-shadow,
+    -#{$outline} #{$outline} 0 c.$text-shadow,
+    -#{$outline} 0 0 c.$text-shadow;
+}

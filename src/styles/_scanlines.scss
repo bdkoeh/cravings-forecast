@@ -1,0 +1,81 @@
+// CRT Scanline overlay -- adapted from ws4kp _scanlines.scss
+// Source: https://github.com/netbymatt/ws4kp (MIT)
+// All values driven by CSS custom properties for dev tuning
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483648;
+  pointer-events: none;
+  // Scanline pattern: line thickness + gap controlled by vars
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 0px,
+    rgba(0, 0, 0, 0.4) 1.5px,
+    transparent 1.5px,
+    transparent 4px
+  );
+
+  // Vignette: darkened edges
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(0, 0, 0, 0.094) 70%,
+      rgba(0, 0, 0, 0.25) 90%,
+      rgba(0, 0, 0, 0.375) 100%
+    );
+  }
+
+  // Traveling highlight bar
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    animation: scanline-travel 10s linear infinite;
+  }
+}
+
+@keyframes scanline-travel {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanlines::after {
+    animation: none;
+    display: none;
+  }
+}
+
+// Mobile: thicker scanlines to avoid moiré on high-DPR screens, no traveling animation
+@media (max-width: 768px) {
+  .scanlines {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.4) 0px,
+      rgba(0, 0, 0, 0.4) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+  }
+
+  .scanlines::after {
+    animation: none;
+    display: none;
+  }
+}

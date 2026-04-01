@@ -1,0 +1,127 @@
+// WS4000 Shell Layout
+// Mobile-first: safe defaults, desktop enhancements gated behind min-width
+
+@use 'colors' as c;
+@use 'utils' as u;
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; // No body scroll — shell handles it
+  font-family: 'Star4000', monospace;
+  font-size: 14px;
+  color: c.$date-time;
+  // Mobile: custom background, fixed to viewport
+  background-color: #000;
+  background-image: url('/assets/images/backgrounds/mobile-background.png');
+  background-position: top center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  // Anti-aliasing mitigations for bitmap fonts
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+
+  @include u.text-shadow();
+}
+
+// Mobile shell: flex column fills viewport exactly
+// Header at top, scrollable content in middle, crawl bar at bottom
+.ws4000-shell {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh; // Dynamic viewport height for mobile address bars
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  // CRT filter on everything (header + content + crawl bar)
+  // Mobile CRT defaults (overridden by desktop media query below)
+  filter: saturate(0.85) contrast(0.8) brightness(1.15) blur(1px);
+  image-rendering: pixelated;
+}
+
+// Content area: fills space between header and crawl bar
+.ws4000-content {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0; // Allow flex child to shrink
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // The .screen inside handles scrolling
+}
+
+// ============================================================
+// Desktop Enhancements (>= 769px)
+// 4:3 lock, min constraints, expanded sizing
+// ============================================================
+
+@media (min-width: 769px) {
+  body {
+    min-width: 1280px;
+    min-height: 960px;
+    width: 100vw;
+    height: 100vh;
+    font-size: 24px;
+    overflow: auto;
+    background: linear-gradient(to top, c.$gradient-main-background-1, c.$gradient-main-background-2);
+  }
+
+  .ws4000-shell {
+    width: max(100vw, 1280px);
+    height: max(100vh, 960px);
+    // Restore original desktop CRT values
+    filter: saturate(0.85) contrast(0.9) brightness(1.0) blur(1.5px);
+  }
+
+  .ws4000-content {
+    // Lock content area to 4:3 aspect ratio, centered
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(1280px, min(100vw, calc(100vh * 4 / 3)), 1440px);
+    height: clamp(960px, min(100vh, calc(100vw * 3 / 4)), 1080px);
+    overflow: hidden;
+    display: block;
+  }
+}
+
+// ============================================================
+// Mobile Landscape: render desktop layout scaled to fit
+// Desktop styles (min-width: 769px) fire for phones in landscape,
+// but min-width: 1280px forces zoom-out. Override here: render
+// at 1280x960, then scale the shell to fit the viewport height.
+// ============================================================
+
+@media (orientation: landscape) and (max-height: 500px) {
+  body {
+    // Undo desktop min dimensions — we'll scale instead
+    min-width: 0;
+    min-height: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    background: c.$gradient-main-background-2;
+  }
+
+  .ws4000-shell {
+    // Render at fixed desktop size
+    width: 1280px;
+    height: 960px;
+    // Scale to fit viewport height (--vh-scale set by JS: innerHeight / 960)
+    transform-origin: top center;
+    transform: scale(var(--vh-scale, 0.4));
+    // Center horizontally in viewport
+    position: absolute;
+    left: 50%;
+    margin-left: -640px; // half of 1280px
+  }
+}
